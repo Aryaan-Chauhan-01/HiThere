@@ -1,300 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aryaan Chauhan | Technical Resume</title>
-  <style>
-    :root {
-      --blue: #1e88e5;
-      --yellow: #fbc02d;
-      --red: #e53935;
-      --green: #43a047;
-      --dark: #1f2933;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      color: #1a1a1a;
-    }
-    nav {
-      position: sticky;
-      top: 0;
-      background: #ffffffee;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      border-bottom: 3px solid var(--yellow);
-      z-index: 10;
-    }
-    nav a {
-      text-decoration: none;
-      font-weight: 600;
-      color: var(--blue);
-    }
-    nav a:hover {
-      color: var(--red);
-    }
-    .hero {
-      background: url('20231106_162214.jpg') center/cover no-repeat;
-      padding: 80px 20px;
-      position: relative;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.75);
-    }
-    .hero-content {
-      position: relative;
-      max-width: 1000px;
-      margin: auto;
-      display: flex;
-      gap: 30px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .hero img {
-      width: 180px;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 4px solid var(--blue);
-    }
-    .hero h1 {
-      margin: 0;
-      font-size: 36px;
-      color: var(--dark);
-    }
-    .hero p {
-      font-size: 18px;
-      color: var(--dark);
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-    }
-    section {
-      margin-top: 40px;
-    }
-    h2 {
-      color: var(--blue);
-      border-left: 6px solid var(--yellow);
-      padding-left: 10px;
-    }
-    h3 {
-      color: var(--green);
-    }
-    ul li {
-      margin-bottom: 6px;
-    }
-    .skills span {
-      display: inline-block;
-      margin: 6px 6px 0 0;
-      padding: 6px 10px;
-      background: #e3f2fd;
-      border-left: 4px solid var(--red);
-      font-size: 14px;
-    }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #fff;
-      padding: 20px;
-      background: var(--dark);
-    }
-    #chatbot-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  border-radius: 12px;
-  overflow: hidden;
-  z-index: 9999;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aryaan Chauhan | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #111; }
+.container { width: 90%; max-width: 1200px; margin: auto; }
+
+.hero { padding: 80px 0; display: flex; gap: 40px; align-items:center; }
+.hero-left { flex: 2; }
+.hero-right { flex: 1; }
+.hero h1 { font-size: 64px; margin: 0; font-weight:700; }
+.hero p { font-size: 20px; margin-top: 20px; color:#444; }
+.accent-bar { width: 6px; background:#0066FF; height: 120px; }
+.profile img { width: 100%; border:1px solid #ddd; }
+
+.resume-btn {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #0066FF;
+    color: #0066FF;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.resume-btn:hover { background: #0066FF; color: #fff; }
+
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; margin-top:60px; }
+.section-title { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#888; margin-bottom:15px; }
+p { line-height:1.6; }
+
+.card { border:1px solid #ddd; padding:20px; transition:0.3s; }
+.card:hover { transform: translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.05); }
+
+.skills span {
+    display:inline-block;
+    border:1px solid #111;
+    padding:5px 10px;
+    margin:5px;
+    font-size:12px;
 }
 
-#chatbot-header {
-  background: #111827;
-  color: #fff;
-  padding: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  text-align: center;
-}
+.highlight { border-left:4px solid #0066FF; padding-left:15px; }
 
-#chatbot-body {
-  background: #f9fafb;
-  display: none;
-  flex-direction: column;
-}
+.chat-toggle { position:fixed; bottom:20px; right:20px; background:#0066FF; color:#fff; padding:12px 16px; cursor:pointer; }
+.chatbot { position:fixed; bottom:70px; right:20px; width:320px; height:420px; background:#fff; border:1px solid #ccc; display:none; flex-direction:column; animation:fadeIn 0.3s; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1;} }
+.chat-header { padding:10px; background:#111; color:#fff; }
+.chat-body { flex:1; padding:10px; overflow-y:auto; font-size:13px; }
+.chat-input { display:flex; border-top:1px solid #ddd; }
+.chat-input input { flex:1; border:none; padding:10px; }
+.chat-input button { border:none; background:#0066FF; color:#fff; padding:10px; }
+.message { margin-bottom:10px; }
+.user { text-align:right; }
+.bot { text-align:left; }
+.typing { font-style:italic; color:#777; }
 
-#chatlog {
-  height: 220px;
-  padding: 10px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-#chatlog p {
-  margin: 6px 0;
-}
-
-#chatlog b {
-  color: #111827;
-}
-
-#userInput {
-  border: none;
-  border-top: 1px solid #e5e7eb;
-  padding: 10px;
-  width: 100%;
-  font-size: 14px;
-  outline: none;
-}
-  </style>
+.suggestions button { margin:5px; padding:5px 10px; border:1px solid #0066FF; background:none; cursor:pointer; }
+</style>
 </head>
+
 <body>
-
-<nav>
-  <a href="#summary">Summary</a>
-  <a href="#experience">Experience</a>
-  <a href="#education">Education</a>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#certifications">Certifications</a>
-</nav>
-
-<div class="hero">
-  <div class="hero-content">
-    <img src="20231106_162214.jpg" alt="Aryaan Chauhan" />
-    <div>
-      <h1>Aryaan Chauhan</h1>
-      <p><strong>Associate Consultant – Oracle Fusion HCM</strong><br />Computer Science Engineer</p>
-      <p>
-        <a href="mailto:aryaanchauhan01@gmail.com">Email</a> | 
-        <a href="https://www.linkedin.com/in/aryaan-chauhan-9357441ba" target="_blank">LinkedIn</a> | 
-        <a href="https://github.com/Aryaan-Chauhan-01" target="_blank">GitHub</a>
-      </p>
-    </div>
-  </div>
-</div>
-
 <div class="container">
 
-<section id="summary">
-  <h2>Professional Summary</h2>
-  <p>Computer Science graduate with hands-on experience as an Associate Consultant at Mastek India, specializing in Oracle Fusion HCM (Core HR, Absence Management, Benefits). Strong foundation in software development, machine learning, and enterprise consulting.</p>
-</section>
+<div class="hero">
+<div class="accent-bar"></div>
+<div class="hero-left">
+<h1>ARYAAN CHAUHAN</h1>
+<p>I design systems that solve real-world constraints.<br>Oracle HCM | AI | Problem Solver</p>
+<a href="resume.pdf" download class="resume-btn">Download Resume</a>
+</div>
+<div class="hero-right profile">
+<img src="20231106_162214.jpg">
+</div>
+</div>
 
-<section id="experience">
-  <h2>Professional Experience</h2>
-  <h3>Mastek India – Associate Consultant (Oracle Fusion HCM)</h3>
-  <p><em>June 2025 – Present</em></p>
-  <ul>
-    <li>Working on Oracle Fusion HCM Core HR, Absence, and Benefits modules.</li>
-    <li>Supporting functional configuration, testing, and documentation.</li>
-    <li>Participating in SIT/UAT and issue resolution.</li>
-  </ul>
+<div class="grid">
 
-  <h3>Mastek India – Oracle Fusion HCM Intern</h3>
-  <p><em>Jan 2024 – Mar 2024</em></p>
-  <ul>
-    <li>Assisted in Core HR, Absence, and Benefits workflows.</li>
-    <li>Supported data validation and functional analysis.</li>
-  </ul>
-</section>
+<div>
+<div class="section-title">Experience</div>
+<div class="card">
+<p><strong>Mastek India – Associate Consultant</strong><br>June 2025 – Present</p>
+<p>Working on Oracle Fusion HCM Core HR, Absence, Benefits & Talent management.</p>
+</div>
+</div>
 
-<section id="education">
-  <h2>Education</h2>
-  <p><strong>Vellore Institute of Technology, Chennai</strong><br />BTech CSE (2020–2024) | CGPA: 8.02<br />JEE Main 2020: 95.79 Percentile</p>
-</section>
+<div>
+<div class="section-title">Why Hire Me?</div>
+<div class="card highlight">
+<p>I combine enterprise consulting with AI-driven thinking, allowing me to solve both structured business problems and modern tech challenges.</p>
+</div>
+</div>
 
-<section id="skills">
-  <h2>Technical Skills</h2>
-  <div class="skills">
-    <span>Artificial Intelligence</span><span>Agentic AI</span><span>Python</span><span>Java</span><span>C++</span><span>SQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
-    <span>Oracle Fusion HCM</span><span>Core HR Module</span><span>Absence Module</span><span>Benefits Module</span>
-  </div>
-</section>
+<div>
+<div class="section-title">Technical Skills</div>
+<div class="card skills">
+<span>Absence Management</span>
+<span>Oracle HCM</span>
+<span>Artificial Intelligence</span>
+<span>Agentic AI</span>
+<span>Prompt Engineering</span>
+<span>Python</span>
+<span>Java</span>
+<span>C++</span>
+<span>SQL</span>
+<span>HTML</span>
+<span>CSS</span>
+<span>JavaScript</span>
+</div>
+</div>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <ul>
-    <li><strong>Food Classification (YOLOv8):</strong> Image-based food detection system.</li>
-    <li><strong>Twitch Analytics:</strong> ML-based streamer performance analysis.</li>
-    <li><strong>Cinema Hall Booking System:</strong> Full-stack PHP application.</li>
-  </ul>
-</section>
+<div>
+<div class="section-title">Oracle HCM Modules</div>
+<div class="card">
+<p>Core HR, Absence Management, Benefits, Talent Management</p>
+</div>
+</div>
 
-<section id="certifications">
-  <h2>Certifications</h2>
-  <ul>
-    <li>Microsoft Security, Compliance & Identity Fundamentals</li>
-    <li>Responsive Web Design – freeCodeCamp</li>
-    <li>Agile Project Management – HP Life</li>
-  </ul>
-</section>
+<div>
+<div class="section-title">Projects</div>
+<div class="card">
+<p>• Image-based Food Recognition<br>
+• Twitch Viewer Prediction<br>
+• <a href="https://aryaan-chauhan-01.github.io/The-Wall/" target="_blank">The Wall</a></p>
+</div>
+</div>
+
+<div>
+<div class="section-title">Clients</div>
+<div class="card">
+<p>The Helicopter Company<br>
+Saudi Chemical Company Holdings<br>
+Talemia<br>
+Q Terminals<br>
+Seviora<br>
+Ayalla Mall</p>
+</div>
+</div>
+
+<div>
+<div class="section-title">Key Achievement</div>
+<div class="card">
+<p>Configured absence plan with constraints:<br>• Max 2 leaves/month<br>• Max 8 hrs/day<br>• Time: 8:30 AM – 4 PM</p>
+</div>
+</div>
+
+<div>
+<div class="section-title">Hobbies</div>
+<div class="card">
+<p>Daily learning habit, writing monthly analysis blogs, and actively participating in sports like Cricket, Tennis, Table Tennis, Badminton, Volleyball, Basketball, and Football.</p>
+</div>
+</div>
 
 </div>
 
-<footer>
-  © 2026 Aryaan Chauhan | Technical Resume Webpage
-</footer>
-
-  <div id="chatbot-container">
-  <div id="chatbot-header" onclick="toggleChat()">
-    💬 Ask About Me
-  </div>
-
-  <div id="chatbot-body">
-    <div id="chatlog"></div>
-    <input
-      id="userInput"
-      type="text"
-      placeholder="Ask about my skills, AI, goals..."
-      onkeypress="handleKeyPress(event)"
-    />
-  </div>
 </div>
 
+<div class="chat-toggle" onclick="toggleChat()">Ask Me</div>
 
-<script src="knowledge.js"></script>
-<script src="chatbot.js"></script>
+<div class="chatbot" id="chatbot">
+<div class="chat-header">Ask Aryaan</div>
+<div class="chat-body" id="chatBody">
+<div class="suggestions">
+<button onclick="quickAsk('skills')">Skills</button>
+<button onclick="quickAsk('projects')">Projects</button>
+<button onclick="quickAsk('experience')">Experience</button>
+<button onclick="quickAsk('clients')">Clients</button>
+</div>
+</div>
+<div class="chat-input">
+<input type="text" id="userInput" placeholder="Ask something...">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
 
 <script>
-
-function toggleChat() {
-  const body = document.getElementById("chatbot-body");
-  const chatlog = document.getElementById("chatlog");
-
-  if (body.style.display === "none") {
-    body.style.display = "flex";
-  } else {
-    body.style.display = "none";
-    chatlog.innerHTML = ""; // 👈 clears chat when closed
-  }
+function toggleChat(){
+const bot=document.getElementById('chatbot');
+bot.style.display=bot.style.display==='flex'?'none':'flex';
 }
-function handleKeyPress(e) {
-  if (e.key === "Enter") {
-    const input = document.getElementById("userInput");
-    const chatlog = document.getElementById("chatlog");
-    const message = input.value.trim();
-    if (!message) return;
 
-    chatlog.innerHTML += `<p><b>You:</b> ${message}</p>`;
-    chatlog.innerHTML += `<p><b>Bot:</b> ${getBotResponse(message)}</p>`;
-    chatlog.scrollTop = chatlog.scrollHeight;
+const knowledgeBase=[
+{q:'skills',a:'I specialize in Absence Management, Oracle HCM, and also work with AI, Python, and Java.'},
+{q:'projects',a:'I built a food recognition system and a Twitch viewer prediction system.'},
+{q:'experience',a:'I work at Mastek India on Oracle HCM modules like Core HR, Absence, and Benefits.'},
+{q:'clients',a:'I have worked with clients like The Helicopter Company, Saudi Chemical Company Holdings, Talemia, Q Terminals, Seviora, and Ayalla Mall.'}
+];
 
-    input.value = "";
-  }
+function quickAsk(q){ document.getElementById('userInput').value=q; sendMessage(); }
+
+function sendMessage(){
+const input=document.getElementById('userInput');
+const text=input.value.toLowerCase();
+if(!text)return;
+addMessage(text,'user');
+addTyping();
+setTimeout(()=>{
+removeTyping();
+let response='Try asking about my skills, projects, experience, or clients.';
+for(let item of knowledgeBase){ if(text.includes(item.q)){response=item.a;break;} }
+addMessage(response,'bot');
+},600);
+input.value='';
 }
+
+function addTyping(){
+const chatBody=document.getElementById('chatBody');
+const div=document.createElement('div');
+div.className='typing'; div.id='typing'; div.innerText='Aryaan is typing...'; chatBody.appendChild(div);
+}
+
+function removeTyping(){ const typing=document.getElementById('typing'); if(typing) typing.remove(); }
+
+function addMessage(text,sender){
+const chatBody=document.getElementById('chatBody');
+const div=document.createElement('div');
+div.className=`message ${sender}`;
+div.innerText=text;
+chatBody.appendChild(div);
+chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+window.onload=function(){ document.getElementById('chatBody').innerHTML=''; }
 </script>
 
 </body>
