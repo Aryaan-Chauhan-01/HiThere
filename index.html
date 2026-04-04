@@ -60,6 +60,56 @@ p { line-height:1.6; }
 .typing { font-style:italic; color:#777; }
 
 .suggestions button { margin:5px; padding:5px 10px; border:1px solid #0066FF; background:none; cursor:pointer; }
+     #chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+#chatbot-header {
+  background: #111827;
+  color: #fff;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+#chatbot-body {
+  background: #f9fafb;
+  display: none;
+  flex-direction: column;
+}
+
+#chatlog {
+  height: 220px;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+#chatlog p {
+  margin: 6px 0;
+}
+
+#chatlog b {
+  color: #111827;
+}
+
+#userInput {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+}
 </style>
 </head>
 
@@ -177,54 +227,53 @@ Ayalla Mall</p>
 </div>
 </div>
 
+  <div id="chatbot-container">
+  <div id="chatbot-header" onclick="toggleChat()">
+    💬 Ask About Me
+  </div>
+
+  <div id="chatbot-body">
+    <div id="chatlog"></div>
+    <input
+      id="userInput"
+      type="text"
+      placeholder="Ask about my skills, AI, goals..."
+      onkeypress="handleKeyPress(event)"
+    />
+  </div>
+</div>
+
+
+<script src="knowledge.js"></script>
+<script src="chatbot.js"></script>
+
 <script>
-function toggleChat(){
-const bot=document.getElementById('chatbot');
-bot.style.display=bot.style.display==='flex'?'none':'flex';
+
+function toggleChat() {
+  const body = document.getElementById("chatbot-body");
+  const chatlog = document.getElementById("chatlog");
+
+  if (body.style.display === "none") {
+    body.style.display = "flex";
+  } else {
+    body.style.display = "none";
+    chatlog.innerHTML = ""; // 👈 clears chat when closed
+  }
 }
+function handleKeyPress(e) {
+  if (e.key === "Enter") {
+    const input = document.getElementById("userInput");
+    const chatlog = document.getElementById("chatlog");
+    const message = input.value.trim();
+    if (!message) return;
 
-const knowledgeBase=[
-{q:'skills',a:'I specialize in Absence Management, Oracle HCM, and also work with AI, Python, and Java.'},
-{q:'projects',a:'I built a food recognition system and a Twitch viewer prediction system.'},
-{q:'experience',a:'I work at Mastek India on Oracle HCM modules like Core HR, Absence, and Benefits.'},
-{q:'clients',a:'I have worked with clients like The Helicopter Company, Saudi Chemical Company Holdings, Talemia, Q Terminals, Seviora, and Ayalla Mall.'}
-];
+    chatlog.innerHTML += `<p><b>You:</b> ${message}</p>`;
+    chatlog.innerHTML += `<p><b>Bot:</b> ${getBotResponse(message)}</p>`;
+    chatlog.scrollTop = chatlog.scrollHeight;
 
-function quickAsk(q){ document.getElementById('userInput').value=q; sendMessage(); }
-
-function sendMessage(){
-const input=document.getElementById('userInput');
-const text=input.value.toLowerCase();
-if(!text)return;
-addMessage(text,'user');
-addTyping();
-setTimeout(()=>{
-removeTyping();
-let response='Try asking about my skills, projects, experience, or clients.';
-for(let item of knowledgeBase){ if(text.includes(item.q)){response=item.a;break;} }
-addMessage(response,'bot');
-},600);
-input.value='';
+    input.value = "";
+  }
 }
-
-function addTyping(){
-const chatBody=document.getElementById('chatBody');
-const div=document.createElement('div');
-div.className='typing'; div.id='typing'; div.innerText='Aryaan is typing...'; chatBody.appendChild(div);
-}
-
-function removeTyping(){ const typing=document.getElementById('typing'); if(typing) typing.remove(); }
-
-function addMessage(text,sender){
-const chatBody=document.getElementById('chatBody');
-const div=document.createElement('div');
-div.className=`message ${sender}`;
-div.innerText=text;
-chatBody.appendChild(div);
-chatBody.scrollTop=chatBody.scrollHeight;
-}
-
-window.onload=function(){ document.getElementById('chatBody').innerHTML=''; }
 </script>
 
 </body>
